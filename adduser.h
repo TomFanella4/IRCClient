@@ -12,8 +12,13 @@ class AddUser : public QDialog
     Q_OBJECT
 
 public:
+    QString getUsername();
+    QString getPassword();
     explicit AddUser(QWidget *parent = 0);
     ~AddUser();
+
+private slots:
+    void on_pushButton_ok_clicked();
 
 private:
     Ui::AddUser *ui;

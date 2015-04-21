@@ -36,7 +36,7 @@
       <height>71</height>
      </rect>
     </property>
-    <property name="plainText">
+    <property name="placeholderText">
      <string>Start Typing Here...</string>
     </property>
    </widget>

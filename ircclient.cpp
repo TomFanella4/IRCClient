@@ -16,8 +16,9 @@ IRCClient::~IRCClient()
 
 void IRCClient::on_Button_addUser_clicked()
 {
-    //ui->listWidget_userList->addItem("John Doe");
     AddUser addUser;
     addUser.setModal(true);
     addUser.exec();
+    if (addUser.getUsername() != "" || addUser.getPassword() != "")
+        ui->listWidget_userList->addItem(addUser.getUsername() + " " + addUser.getPassword());
 }
