@@ -12,3 +12,8 @@ IRCClient::~IRCClient()
 {
     delete ui;
 }
+
+void IRCClient::on_Button_addUser_clicked()
+{
+
+}

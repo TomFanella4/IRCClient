@@ -15,6 +15,9 @@ public:
     explicit IRCClient(QWidget *parent = 0);
     ~IRCClient();
 
+private slots:
+    void on_Button_addUser_clicked();
+
 private:
     Ui::IRCClient *ui;
 };
