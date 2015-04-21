@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        ircclient.cpp
+        ircclient.cpp \
+    adduser.cpp
 
-HEADERS  += ircclient.h
+HEADERS  += ircclient.h \
+    adduser.h
 
-FORMS    += ircclient.ui
+FORMS    += ircclient.ui \
+    adduser.ui
