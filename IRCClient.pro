@@ -14,7 +14,8 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         ircclient.cpp \
-    adduser.cpp
+    adduser.cpp \
+    talk-client.cpp
 
 HEADERS  += ircclient.h \
     adduser.h
