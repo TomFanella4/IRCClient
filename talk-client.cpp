@@ -108,20 +108,28 @@ void add_user(char * host, int port, char * user, char * pass) {
     }
 }
 
-void enter_room() {
+void create_room(char * host, int port, char * user, char * pass) {
+
 }
 
-void leave_room() {
+void enter_room(char * host, int port, char * user, char * pass) {
+
 }
 
-void get_messages() {
+void leave_room(char * host, int port, char * user, char * pass) {
+
+}
+
+void get_messages(char * host, int port, char * user, char * pass) {
 
 }
 
 void send_message(char * msg) {
+
 }
 
 void print_users_in_room() {
+
 }
 
 void print_users(char * host, int port, char * user, char * pass) {
@@ -153,7 +161,7 @@ void startGetMessageThread()
     pthread_create(NULL, NULL, getMessagesThread, NULL);
 }
 
-void startCommand(char * host, char * sport, char * user, char * pass) {
+void startCommand(char * host, char * sport, char * command, char * user, char * pass) {
 
     printf("\nStarting talk-client %s %s %s %s\n", host, sport, user, pass);
 
@@ -162,12 +170,23 @@ void startCommand(char * host, char * sport, char * user, char * pass) {
     // Convert port to number
     sscanf(sport, "%d", &port);
 
-    add_user(host, port, user, pass);
+    if (!strcmp(command, "ADD-USER"))
+        add_user(host, port, user, pass);
 
-    print_users(host, port, user, pass);
+    else if (!strcmp(command, "GET-ALL-USERS"))
+        print_users(host, port, user, pass);
 
-    // Enter room
-    //enter_room();
+    else if (!strcmp(command, "CREATE-ROOM"))
+        create_room(host, port, user, pass);
+
+    else if (!strcmp(command, "LIST-ROOMS"))
+        enter_room(host, port, user, pass);
+
+    else if (!strcmp(command, "ENTER-ROOM"))
+        leave_room(host, port, user, pass);
+
+    else if (!strcmp(command, "LEAVE-ROOM"))
+        get_messages(host, port, user, pass);
 
     // Start message thread
     //startGetMessageThread();
