@@ -1,3 +1,4 @@
+/*#include "talkclient.h"
 
 #include <time.h>
 //#include <curses.h>
@@ -11,15 +12,29 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <pthread.h>
-#include <QDebug>
+
+char * host;
+char * user;
+char * pass;
+char * sport;
+int port;
 
 #define MAX_MESSAGES 100
 #define MAX_MESSAGE_LEN 300
 #define MAX_RESPONSE (20 * 1024)
 
+
+TalkClient::TalkClient() {
+
+}
+
+TalkClient::~TalkClient() {
+
+}
+
 int lastMessage = 0;
 
-int open_client_socket(char * host, int port) {
+int TalkClient::open_client_socket(char * host, int port) {
     // Initialize socket address structure
     struct  sockaddr_in socketAddress;
 
@@ -66,7 +81,7 @@ int open_client_socket(char * host, int port) {
     return sock;
 }
 
-int sendCommand(char * host, int port, char * command, char * user,
+int TalkClient::sendCommand(char * host, int port, char * command, char * user,
         char * pass, char * args, char * response) {
     int sock = open_client_socket( host, port);
 
@@ -87,18 +102,18 @@ int sendCommand(char * host, int port, char * command, char * user,
         len += n;
     }
 
-    printf("response:%s\n", response);
+    //printf("response:%s\n", response);
 
     close(sock);
 }
 
-void printUsage()
+void TalkClient::printUsage()
 {
     printf("Usage: talk-client host port user pass\n");
     exit(1);
 }
 
-void add_user(char * host, int port, char * user, char * pass) {
+void TalkClient::add_user() {
     // Try first to add user in case it does not exist.
     char response[ MAX_RESPONSE ];
     sendCommand(host, port, "ADD-USER", user, pass, "", response);
@@ -108,33 +123,39 @@ void add_user(char * host, int port, char * user, char * pass) {
     }
 }
 
-void enter_room() {
+void TalkClient::enter_room() {
 }
 
-void leave_room() {
+void TalkClient::leave_room() {
 }
 
-void get_messages() {
-
+void TalkClient::get_messages() {
 }
 
-void send_message(char * msg) {
+void TalkClient::send_message(char * msg) {
 }
 
-void print_users_in_room() {
+void TalkClient::print_users_in_room() {
 }
 
-void print_users(char * host, int port, char * user, char * pass) {
-    char response[ MAX_RESPONSE ];
-    sendCommand(host, port, "GET-ALL-USERS", user, pass, "", response);
+void TalkClient::print_users() {
 }
 
-void printPrompt() {
+void TalkClient::printPrompt() {
     printf("talk> ");
     fflush(stdout);
 }
 
-void * getMessagesThread(void * arg) {
+void TalkClient::printHelp() {
+    printf("Commands:\n");
+    printf(" -who   - Gets users in room\n");
+    printf(" -users - Prints all registered users\n");
+    printf(" -help  - Prints this help\n");
+    printf(" -quit  - Leaves the room\n");
+    printf("Anything that does not start with \"-\" will be a message to the chat room\n");
+}
+
+void * TalkClient::getMessagesThread(void * arg) {
     // This code will be executed simultaneously with main()
     // Get messages to get last message number. Discard the initial Messages
 
@@ -148,28 +169,69 @@ void * getMessagesThread(void * arg) {
     }
 }
 
-void startGetMessageThread()
+void TalkClient::startGetMessageThread()
 {
     pthread_create(NULL, NULL, getMessagesThread, NULL);
 }
 
-void startCommand(char * host, char * sport, char * user, char * pass) {
+
+void TalkClient::startCommand(char * host, char * sport, const char * user, const char * pass) {
+
+    char line[MAX_MESSAGE_LEN+1];
+
+    host = host;
+    sport = sport;
+    user = user;
+    pass = pass;
 
     printf("\nStarting talk-client %s %s %s %s\n", host, sport, user, pass);
-
-    int port;
 
     // Convert port to number
     sscanf(sport, "%d", &port);
 
-    add_user(host, port, user, pass);
-
-    print_users(host, port, user, pass);
+    add_user();
 
     // Enter room
     //enter_room();
 
     // Start message thread
     //startGetMessageThread();
+
+    while (1) {
+        printPrompt();
+
+        char * s = fgets(line,MAX_MESSAGE_LEN, stdin);
+        if (s==NULL) {
+            leave_room();
+            printf("talk-client exiting...\n");
+            exit(1);
+        }
+
+        if (!isatty(0)) {
+            // If it is not a terminal, echo command as well
+            printf("%s\n", line);
+        }
+
+        if (line[0]=='-') {
+            // This is a command process it
+            if (!strcmp(line,"-help")) {
+                printHelp();
+            }
+            else if (!strcmp(line,"-quit")) {
+                printf("talk-client exiting...\n");
+                exit(1);
+            }
+            // Put other commands here
+        }
+        else if (line[0]==0) {
+            // Empty line. Print help
+            printf("Type -help to print the available commands\n");
+        }
+        else {
+            // Send message
+        }
+    }
+
     printf("TEST ENDS\n");
 }
+*/
