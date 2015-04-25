@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,11 +17,13 @@ SOURCES += main.cpp\
         ircclient.cpp \
     adduser.cpp \
     talk-client.cpp \
-    login.cpp
+    login.cpp \
+    mytcpsocket.cpp
 
 HEADERS  += ircclient.h \
     adduser.h \
-    login.h
+    login.h \
+    mytcpsocket.h
 
 FORMS    += ircclient.ui \
     adduser.ui \

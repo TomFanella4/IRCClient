@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "mytcpsocket.h"
+
 namespace Ui {
 class IRCClient;
 }
@@ -16,6 +18,8 @@ class IRCClient : public QMainWindow
 
     QString cUsername;
     QString cPassword;
+
+    MyTcpSocket socket;
 
 public:
     explicit IRCClient(QWidget *parent = 0);

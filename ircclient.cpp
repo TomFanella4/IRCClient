@@ -49,7 +49,10 @@ void IRCClient::on_Button_addUser_clicked()
 
         printf("Username: %s\nPassword: %s", uName, uPass);
 
-        startCommand(uHost, uPort,"ADD-USER", uName, uPass);
+        //startCommand(uHost, uPort,"ADD-USER", uName, uPass);
+
+        socket.doConnect();
+
         ui->listWidget_userList->addItem(addUser.getUsername());
     }
 }
