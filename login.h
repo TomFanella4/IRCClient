@@ -11,8 +11,19 @@ class Login : public QDialog
 {
     Q_OBJECT
 
+    QString loginH;
+    int loginPort;
+    QString loginU;
+    QString loginP;
+
 public:
     explicit Login(QWidget *parent = 0);
+
+    QString getLoginH();
+    int getLoginPort();
+    QString getLoginU();
+    QString getLoginP();
+
     ~Login();
 
 private slots:

@@ -22,7 +22,8 @@ void AddUser::on_pushButton_ok_clicked()
 {
     username = ui->plainTextEdit_username->toPlainText();
     password = ui->plainTextEdit_password->toPlainText();
-    this->close();
+
+    close();
 }
 
 QString AddUser::getUsername() {

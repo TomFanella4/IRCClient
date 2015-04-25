@@ -16,4 +16,26 @@ Login::~Login()
 void Login::on_pushButton_ok_clicked()
 {
 
+    loginH = ui->plainTextEdit_host->toPlainText();
+    loginPort = ui->plainTextEdit_port->toPlainText().toInt();
+    loginU = ui->plainTextEdit_username->toPlainText();
+    loginP = ui->plainTextEdit_password->toPlainText();
+
+    close();
+}
+
+QString Login::getLoginH() {
+    return loginH;
+}
+
+int Login::getLoginPort() {
+    return loginPort;
+}
+
+QString Login::getLoginU() {
+    return loginU;
+}
+
+QString Login::getLoginP() {
+    return loginP;
 }

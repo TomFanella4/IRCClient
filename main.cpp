@@ -5,11 +5,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    //IRCClient w;
-    //w.show();
 
-    Login w;
-    w.show();
+    IRCClient irc;
+    irc.show();
 
     return a.exec();
 }

@@ -11,11 +11,20 @@ class IRCClient : public QMainWindow
 {
     Q_OBJECT
 
+    QString host;
+    int port;
+
     QString cUsername;
     QString cPassword;
 
 public:
     explicit IRCClient(QWidget *parent = 0);
+
+    QString getHost();
+    int getPort();
+
+    void setHost(QString h);
+    void setPort(int p);
 
     QString getCUsername();
     QString getCPassword();
