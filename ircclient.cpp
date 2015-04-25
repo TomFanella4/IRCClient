@@ -32,7 +32,28 @@ void IRCClient::on_Button_addUser_clicked()
 
         printf("Username: %s\nPassword: %s", uName, uPass);
 
-        startCommand("data.cs.purdue.edu", "2030", uName, uPass);
+        startCommand("data.cs.purdue.edu", "2030","ADD-USER", uName, uPass);
         ui->listWidget_userList->addItem(addUser.getUsername());
     }
+}
+
+void IRCClient::on_Button_addRoom_clicked()
+{
+
+}
+
+QString IRCClient::getCUsername() {
+    return cUsername;
+}
+
+QString IRCClient::getCPassword() {
+    return cPassword;
+}
+
+void IRCClient::setCUsername(QString u) {
+    cUsername = u;
+}
+
+void IRCClient::setCPassword(QString p) {
+    cPassword = p;
 }

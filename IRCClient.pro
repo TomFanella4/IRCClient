@@ -15,12 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         ircclient.cpp \
     adduser.cpp \
-    talkclient.cpp \
-    talk-client.cpp
+    talk-client.cpp \
+    login.cpp
 
 HEADERS  += ircclient.h \
     adduser.h \
-    talkclient.h
+    login.h
 
 FORMS    += ircclient.ui \
-    adduser.ui
+    adduser.ui \
+    login.ui
