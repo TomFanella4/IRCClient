@@ -13,28 +13,28 @@ class IRCClient : public QMainWindow
 {
     Q_OBJECT
 
-    QString host;
+    char * host;
     int port;
 
-    QString cUsername;
-    QString cPassword;
+    char * cUsername;
+    char * cPassword;
 
     MyTcpSocket socket;
 
 public:
     explicit IRCClient(QWidget *parent = 0);
 
-    QString getHost();
+    char * getHost();
     int getPort();
 
-    void setHost(QString h);
+    void setHost(char * h);
     void setPort(int p);
 
-    QString getCUsername();
-    QString getCPassword();
+    char * getCUsername();
+    char * getCPassword();
 
-    void setCUsername(QString u);
-    void setCPassword(QString p);
+    void setCUsername(char * u);
+    void setCPassword(char * p);
 
     ~IRCClient();
 
@@ -42,6 +42,7 @@ private slots:
     void on_Button_addUser_clicked();
 
     void on_Button_addRoom_clicked();
+    void refreshUserList();
 
 private:
     Ui::IRCClient *ui;

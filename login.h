@@ -11,18 +11,18 @@ class Login : public QDialog
 {
     Q_OBJECT
 
-    QString loginH;
+    char * loginH;
     int loginPort;
-    QString loginU;
-    QString loginP;
+    char * loginU;
+    char * loginP;
 
 public:
     explicit Login(QWidget *parent = 0);
 
-    QString getLoginH();
+    char * getLoginH();
     int getLoginPort();
-    QString getLoginU();
-    QString getLoginP();
+    char * getLoginU();
+    char * getLoginP();
 
     ~Login();
 

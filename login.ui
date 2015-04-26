@@ -34,6 +34,9 @@
    <property name="lineWrapMode">
     <enum>QPlainTextEdit::NoWrap</enum>
    </property>
+   <property name="plainText">
+    <string>data.cs.purdue.edu</string>
+   </property>
    <property name="centerOnScroll">
     <bool>true</bool>
    </property>
@@ -61,6 +64,9 @@
    </property>
    <property name="lineWrapMode">
     <enum>QPlainTextEdit::NoWrap</enum>
+   </property>
+   <property name="plainText">
+    <string>2050</string>
    </property>
    <property name="centerOnScroll">
     <bool>true</bool>
@@ -90,6 +96,9 @@
    <property name="lineWrapMode">
     <enum>QPlainTextEdit::NoWrap</enum>
    </property>
+   <property name="plainText">
+    <string>tom</string>
+   </property>
    <property name="centerOnScroll">
     <bool>true</bool>
    </property>
@@ -117,6 +126,9 @@
    </property>
    <property name="lineWrapMode">
     <enum>QPlainTextEdit::NoWrap</enum>
+   </property>
+   <property name="plainText">
+    <string>fan</string>
    </property>
    <property name="centerOnScroll">
     <bool>true</bool>

@@ -16,15 +16,16 @@ Login::~Login()
 void Login::on_pushButton_ok_clicked()
 {
 
-    loginH = ui->plainTextEdit_host->toPlainText();
+    loginH = strdup(ui->plainTextEdit_host->toPlainText().toStdString().c_str());
     loginPort = ui->plainTextEdit_port->toPlainText().toInt();
-    loginU = ui->plainTextEdit_username->toPlainText();
-    loginP = ui->plainTextEdit_password->toPlainText();
+
+    loginU = strdup(ui->plainTextEdit_username->toPlainText().toStdString().c_str());
+    loginP = strdup(ui->plainTextEdit_password->toPlainText().toStdString().c_str());
 
     close();
 }
 
-QString Login::getLoginH() {
+char * Login::getLoginH() {
     return loginH;
 }
 
@@ -32,10 +33,10 @@ int Login::getLoginPort() {
     return loginPort;
 }
 
-QString Login::getLoginU() {
+char * Login::getLoginU() {
     return loginU;
 }
 
-QString Login::getLoginP() {
+char * Login::getLoginP() {
     return loginP;
 }

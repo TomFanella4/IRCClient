@@ -18,13 +18,16 @@ SOURCES += main.cpp\
     adduser.cpp \
     talk-client.cpp \
     login.cpp \
-    mytcpsocket.cpp
+    mytcpsocket.cpp \
+    addroom.cpp
 
 HEADERS  += ircclient.h \
     adduser.h \
     login.h \
-    mytcpsocket.h
+    mytcpsocket.h \
+    addroom.h
 
 FORMS    += ircclient.ui \
     adduser.ui \
-    login.ui
+    login.ui \
+    addroom.ui

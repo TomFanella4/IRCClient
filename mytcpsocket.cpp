@@ -5,28 +5,32 @@ MyTcpSocket::MyTcpSocket()
 
 }
 
-void MyTcpSocket::doConnect()
+char * MyTcpSocket::doConnect(char * host, int sport, char * command)
 {
     socket = new QTcpSocket();
 
-    socket->connectToHost("data.cs.purdue.edu", 2040);
+    socket->connectToHost(host, sport);
 
     if(socket->waitForConnected(5000))
     {
         qDebug() << "Connected!";
 
         // send
-        socket->write("GET-ALL-USERS jill l\r\n");
+        //socket->write("GET-ALL-USERS jill l\r\n");
+        socket->write(command);
         socket->waitForBytesWritten(1000);
-        socket->waitForReadyRead(1500);
+        socket->waitForReadyRead(1175);
 
         qDebug() << "Reading: " << socket->bytesAvailable();
 
         // get the data
-        qDebug() << socket->readAll();
+        QByteArray output = socket->readAll();
+        qDebug() << output;
 
         // close the connection
         socket->close();
+
+        return output.data();
     }
     else
     {

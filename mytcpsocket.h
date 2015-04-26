@@ -9,7 +9,7 @@ class MyTcpSocket
 public:
     MyTcpSocket();
 
-    void doConnect();
+    char * doConnect(char * host, int sport, char * command);
 
 private:
     QTcpSocket *socket;

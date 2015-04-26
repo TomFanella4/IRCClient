@@ -4,8 +4,6 @@
 #include "login.h"
 #include "stdlib.h"
 
-#include "talk-client.cpp"
-
 IRCClient::IRCClient(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::IRCClient)
@@ -20,6 +18,8 @@ IRCClient::IRCClient(QWidget *parent) :
     setPort(l.getLoginPort());
     setCUsername(l.getLoginU());
     setCPassword(l.getLoginP());
+
+    refreshUserList();
 }
 
 IRCClient::~IRCClient()
@@ -39,21 +39,41 @@ void IRCClient::on_Button_addUser_clicked()
     QByteArray array2 = addUser.getPassword().toUtf8();
     char * uPass = array2.data();
 
-    QByteArray array3 = getHost().toUtf8();
-    char * uHost = array3.data();
-
-    char * uPort = (char *)malloc(sizeof(getPort()) + 1);
-    snprintf(uPort, sizeof(getPort()) + 1, "%d", getPort());
-
     if (strcmp(uName, "") != 0 && strcmp(uPass, "") != 0) {
 
-        printf("Username: %s\nPassword: %s", uName, uPass);
+        char * message = (char *)malloc(strlen(uName) + strlen(uPass) + strlen("  ADD-USER\r\n") + 1);
+        sprintf(message, "ADD-USER %s %s\r\n", uName, uPass);
 
-        //startCommand(uHost, uPort,"ADD-USER", uName, uPass);
+        printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), uName, uPass, message);
 
-        socket.doConnect();
+        socket.doConnect(getHost(), getPort(), message);
 
         ui->listWidget_userList->addItem(addUser.getUsername());
+
+        refreshUserList();
+    }
+}
+
+void IRCClient::refreshUserList() {
+
+    char * message = (char *)malloc(strlen(getCUsername()) + strlen(getCPassword()) + strlen("  GET-ALL-USERS\r\n") + 1);
+    sprintf(message, "GET-ALL-USERS %s %s\r\n", getCUsername(), getCPassword());
+
+    printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
+
+    char * userList = socket.doConnect(getHost(), getPort(), message);
+    char * token;
+    QString stoken;
+
+    ui->listWidget_userList->clear();
+
+    token = strtok(userList, "\n");
+
+    while (token != NULL && strcmp(token, "\n")) {
+        stoken.sprintf("%s", token);
+        ui->listWidget_userList->addItem(stoken);
+
+        token = strtok(NULL, "\n");
     }
 }
 
@@ -62,7 +82,7 @@ void IRCClient::on_Button_addRoom_clicked()
 
 }
 
-QString IRCClient::getHost() {
+char * IRCClient::getHost() {
     return host;
 }
 
@@ -70,15 +90,15 @@ int IRCClient::getPort() {
     return port;
 }
 
-QString IRCClient::getCUsername() {
+char * IRCClient::getCUsername() {
     return cUsername;
 }
 
-QString IRCClient::getCPassword() {
+char * IRCClient::getCPassword() {
     return cPassword;
 }
 
-void IRCClient::setHost(QString h) {
+void IRCClient::setHost(char * h) {
     host = h;
 }
 
@@ -86,10 +106,10 @@ void IRCClient::setPort(int p) {
     port = p;
 }
 
-void IRCClient::setCUsername(QString u) {
+void IRCClient::setCUsername(char * u) {
     cUsername = u;
 }
 
-void IRCClient::setCPassword(QString p) {
+void IRCClient::setCPassword(char * p) {
     cPassword = p;
 }
