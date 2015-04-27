@@ -39,6 +39,10 @@ public:
     void setCUsername(char * u);
     void setCPassword(char * p);
 
+    char * getRoom();
+
+    void refreshMessageList(char * room);
+
     ~IRCClient();
 
 private slots:
@@ -47,7 +51,6 @@ private slots:
 
     void initializeUser();
     void refreshUserList(char * room);
-    void refreshMessageList(char * room);
     void refreshRoomList();
 
     void on_Button_sendMessage_clicked();

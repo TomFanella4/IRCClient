@@ -18,13 +18,15 @@ SOURCES += main.cpp\
         adduser.cpp \
         login.cpp \
         mytcpsocket.cpp \
-        addroom.cpp
+        addroom.cpp \
+    worker.cpp
 
 HEADERS  += ircclient.h \
             adduser.h \
             login.h \
             mytcpsocket.h \
-            addroom.h
+            addroom.h \
+    worker.h
 
 FORMS    += ircclient.ui \
             adduser.ui \

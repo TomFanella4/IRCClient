@@ -3,7 +3,8 @@
 #include "adduser.h"
 #include "login.h"
 #include "addroom.h"
-#include "stdlib.h"
+#include "worker.h"
+#include "QThread"
 
 IRCClient::IRCClient(QWidget *parent) :
     QMainWindow(parent),
@@ -27,6 +28,8 @@ IRCClient::IRCClient(QWidget *parent) :
     cRoom = strdup("");
 
     initializeUser();
+    refreshRoomList();
+    refreshRoomList();
     refreshRoomList();
 }
 
@@ -135,7 +138,19 @@ void IRCClient::on_listWidget_roomList_itemClicked(QListWidgetItem *item) {
 
     socket.doConnect(getHost(), getPort(), message);
     refreshUserList(room);
-    refreshMessageList(room);
+    refreshUserList(room);
+
+    QThread * thread = new QThread;
+    Worker* worker = new Worker();
+    worker->setRoom(room);
+    worker->setIRC(this);
+    worker->moveToThread(thread);
+    connect(thread, SIGNAL(started()), worker, SLOT(process()));
+    connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    thread->start();
+    //refreshMessageList(room);
 }
 
 void IRCClient::refreshUserList(char * room) {
@@ -252,4 +267,8 @@ void IRCClient::setCUsername(char * u) {
 
 void IRCClient::setCPassword(char * p) {
     cPassword = p;
+}
+
+char * IRCClient::getRoom() {
+    return cRoom;
 }
