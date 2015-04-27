@@ -20,6 +20,8 @@ class IRCClient : public QMainWindow
     char * cUsername;
     char * cPassword;
 
+    char * cRoom;
+
     MyTcpSocket socket;
 
 public:

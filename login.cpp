@@ -6,6 +6,10 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
+    loginH = strdup("");
+    loginPort = 0;
+    loginU = strdup("");
+    loginP = strdup("");
 }
 
 Login::~Login()

@@ -16,7 +16,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
         ircclient.cpp \
         adduser.cpp \
-        talk-client.cpp \
         login.cpp \
         mytcpsocket.cpp \
         addroom.cpp

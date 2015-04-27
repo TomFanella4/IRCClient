@@ -80,17 +80,18 @@
     </property>
     <item>
      <property name="text">
-      <string>Spiderman: Message 1</string>
+      <string>Welcome to my IRC Client!!!</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>kakaroo: Message 2</string>
+      <string>Create or select a room to view its users and send messages!</string>
      </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>matt: Message 3</string>
+     <property name="textAlignment">
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
    </widget>

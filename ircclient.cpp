@@ -15,10 +15,16 @@ IRCClient::IRCClient(QWidget *parent) :
     l.setModal(true);
     l.exec();
 
+    while (!strcmp(l.getLoginH(), "") || l.getLoginPort() == 0 || !strcmp(l.getLoginU(), "") || !strcmp(l.getLoginP(), "")) {
+        close();
+    }
+
     setHost(l.getLoginH());
     setPort(l.getLoginPort());
     setCUsername(l.getLoginU());
     setCPassword(l.getLoginP());
+
+    cRoom = strdup("");
 
     initializeUser();
     refreshRoomList();
@@ -91,22 +97,38 @@ void IRCClient::on_Button_createRoom_clicked()
 }
 
 void IRCClient::on_Button_sendMessage_clicked() {
-    char * room = strdup(ui->listWidget_roomList->currentItem()->text().toStdString().c_str());
+    QListWidgetItem * roomItem = ui->listWidget_roomList->currentItem();
     char * mess = strdup(ui->textbox_sendMessage->toPlainText().toStdString().c_str());
+
+    if (mess == NULL || roomItem == NULL)
+        return;
+
+    char * room = strdup(roomItem->text().toStdString().c_str());
 
     char message[100];
     sprintf(message, "SEND-MESSAGE %s %s %s %s\r\n", getCUsername(), getCPassword(), room, mess);
 
     socket.doConnect(getHost(), getPort(), message);
 
+    ui->textbox_sendMessage->clear();
+
     refreshMessageList(room);
 }
 
 void IRCClient::on_listWidget_roomList_itemClicked(QListWidgetItem *item) {
+    if (strcmp(cRoom, "") != 0) {
+        char m[100];
+        sprintf(m, "LEAVE-ROOM %s %s %s\r\n", getCUsername(), getCPassword(), cRoom);
+
+        socket.doConnect(getHost(), getPort(), m);
+    }
+
     char * room = strdup(item->text().toStdString().c_str());
+    cRoom = strdup(room);
+    printf("%s\n", room);
 
     char message[100];
-    sprintf(message, "ENTER-ROOM %s %s %s", getCUsername(), getCPassword(), room);
+    sprintf(message, "ENTER-ROOM %s %s %s\r\n", getCUsername(), getCPassword(), room);
 
     printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
 
@@ -123,18 +145,22 @@ void IRCClient::refreshUserList(char * room) {
     printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
 
     char * userList = socket.doConnect(getHost(), getPort(), message);
+
+    while (strstr(userList, "\r\n\r") == NULL && strlen(userList) > 2)
+        userList = socket.doConnect(getHost(), getPort(), message);
+
     char * token;
     QString stoken;
 
     ui->listWidget_userList->clear();
 
-    token = strtok(userList, "\n");
+    token = strtok(userList, "\r\n");
 
-    while (token != NULL && strcmp(token, "\0")) {
+    while (token != NULL) {
         stoken.sprintf("%s", token);
         ui->listWidget_userList->addItem(stoken);
 
-        token = strtok(NULL, "\n");
+        token = strtok(NULL, "\r\n");
     }
 }
 
@@ -146,18 +172,22 @@ void IRCClient::refreshRoomList() {
     printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
 
     char * userList = socket.doConnect(getHost(), getPort(), message);
+
+    while (strstr(userList, "\r\n\r") == NULL && strlen(userList) > 2)
+        userList = socket.doConnect(getHost(), getPort(), message);
+
     char * token;
     QString stoken;
 
     ui->listWidget_roomList->clear();
 
-    token = strtok(userList, "\n");
+    token = strtok(userList, "\r\n");
 
-    while (token != NULL && strcmp(token, "\n")) {
+    while (token != NULL) {
         stoken.sprintf("%s", token);
         ui->listWidget_roomList->addItem(stoken);
 
-        token = strtok(NULL, "\n");
+        token = strtok(NULL, "\r\n");
     }
 }
 
@@ -168,18 +198,22 @@ void IRCClient::refreshMessageList(char * room) {
     printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
 
     char * userList = socket.doConnect(getHost(), getPort(), message);
+
+    while (strstr(userList, "\r\n\r") == NULL && strstr(userList, "NO-NEW-MESSAGES") == NULL)
+        userList = socket.doConnect(getHost(), getPort(), message);
+
     char * token;
     QString stoken;
 
     ui->listWidget_messageList->clear();
 
-    token = strtok(userList, "\n");
+    token = strtok(userList, "\r\n");
 
-    while (token != NULL && strcmp(token, "\n")) {
+    while (token != NULL) {
         stoken.sprintf("%s", token);
         ui->listWidget_messageList->addItem(stoken);
 
-        token = strtok(NULL, "\n");
+        token = strtok(NULL, "\r\n");
     }
 }
 
