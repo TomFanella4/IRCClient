@@ -140,33 +140,7 @@
      <string>Add User</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Button_addRoom">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>410</y>
-      <width>110</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Room</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Button_removeRoom">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>450</y>
-      <width>110</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Remove Room</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Button_enterRoom">
+   <widget class="QPushButton" name="Button_createRoom">
     <property name="geometry">
      <rect>
       <x>730</x>
@@ -176,20 +150,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>Enter Room</string>
+     <string>Create Room</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Button_leaveRoom">
+   <widget class="QPushButton" name="Button_refreshList">
     <property name="geometry">
      <rect>
       <x>730</x>
-      <y>370</y>
+      <y>380</y>
       <width>110</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Leave Room</string>
+     <string>Refresh List</string>
     </property>
    </widget>
   </widget>

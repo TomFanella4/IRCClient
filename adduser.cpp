@@ -1,9 +1,6 @@
 #include "adduser.h"
 #include "ui_adduser.h"
 
-QString username;
-QString password;
-
 AddUser::AddUser(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddUser)
@@ -13,8 +10,6 @@ AddUser::AddUser(QWidget *parent) :
 
 AddUser::~AddUser()
 {
-    username = "";
-    password = "";
     delete ui;
 }
 

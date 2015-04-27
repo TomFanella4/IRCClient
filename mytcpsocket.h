@@ -2,7 +2,6 @@
 #define MYTCPSOCKET_H
 
 #include <QTcpSocket>
-#include <QDebug>
 
 class MyTcpSocket
 {
@@ -10,6 +9,7 @@ public:
     MyTcpSocket();
 
     char * doConnect(char * host, int sport, char * command);
+    int open_client_socket(char * host, int port);
 
 private:
     QTcpSocket *socket;

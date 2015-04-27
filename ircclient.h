@@ -2,6 +2,7 @@
 #define IRCCLIENT_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
 
 #include "mytcpsocket.h"
 
@@ -40,9 +41,18 @@ public:
 
 private slots:
     void on_Button_addUser_clicked();
+    void on_Button_createRoom_clicked();
 
-    void on_Button_addRoom_clicked();
-    void refreshUserList();
+    void initializeUser();
+    void refreshUserList(char * room);
+    void refreshMessageList(char * room);
+    void refreshRoomList();
+
+    void on_Button_sendMessage_clicked();
+
+    void on_listWidget_roomList_itemClicked(QListWidgetItem *item);
+
+    void on_Button_refreshList_clicked();
 
 private:
     Ui::IRCClient *ui;

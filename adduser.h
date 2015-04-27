@@ -11,6 +11,9 @@ class AddUser : public QDialog
 {
     Q_OBJECT
 
+    QString username;
+    QString password;
+
 public:
     QString getUsername();
     QString getPassword();

@@ -1,4 +1,4 @@
-
+/*
 #include <time.h>
 //#include <curses.h>
 #include <sys/types.h>
@@ -146,14 +146,16 @@ void * getMessagesThread(void * arg) {
     // This code will be executed simultaneously with main()
     // Get messages to get last message number. Discard the initial Messages
 
-    while (1) {
+    //startCommand("data.cs.purdue.edu", 32896, "ADD-USER", "tom", "fan");
+
+    //while (1) {
         // Get messages after last message number received.
 
         // Print messages
 
         // Sleep for ten seconds
-        usleep(2*1000*1000);
-    }
+        //usleep(2*1000*1000);
+    //}
 }
 
 void startGetMessageThread()
@@ -192,3 +194,4 @@ void startCommand(char * host, char * sport, char * command, char * user, char *
     //startGetMessageThread();
     printf("TEST ENDS\n");
 }
+*/

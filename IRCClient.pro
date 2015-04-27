@@ -15,19 +15,19 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         ircclient.cpp \
-    adduser.cpp \
-    talk-client.cpp \
-    login.cpp \
-    mytcpsocket.cpp \
-    addroom.cpp
+        adduser.cpp \
+        talk-client.cpp \
+        login.cpp \
+        mytcpsocket.cpp \
+        addroom.cpp
 
 HEADERS  += ircclient.h \
-    adduser.h \
-    login.h \
-    mytcpsocket.h \
-    addroom.h
+            adduser.h \
+            login.h \
+            mytcpsocket.h \
+            addroom.h
 
 FORMS    += ircclient.ui \
-    adduser.ui \
-    login.ui \
-    addroom.ui
+            adduser.ui \
+            login.ui \
+            addroom.ui
