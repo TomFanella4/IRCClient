@@ -28,7 +28,7 @@ char * MyTcpSocket::doConnect(char * host, int sport, char * command)
 
     socket->connectToHost(host, sport);
 
-    if(socket->waitForConnected(5000))
+    if(socket->waitForConnected(1000))
     {
         qDebug() << "Connected!";
 
@@ -66,6 +66,7 @@ char * MyTcpSocket::doConnect(char * host, int sport, char * command)
     else
     {
         qDebug() << "Not connected!";
+        doConnect(host, sport, command);
     }
 }
 

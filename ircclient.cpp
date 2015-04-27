@@ -30,7 +30,8 @@ IRCClient::~IRCClient()
 }
 
 void IRCClient::initializeUser() {
-    char * message = (char *)malloc(strlen(getCUsername()) + strlen(getCPassword()) + strlen("  ADD-USER\r\n") + 1);
+
+    char message[100];
     sprintf(message, "ADD-USER %s %s\r\n", getCUsername(), getCPassword());
 
     printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
@@ -51,7 +52,7 @@ void IRCClient::on_Button_addUser_clicked() {
 
     if (strcmp(uName, "") != 0 && strcmp(uPass, "") != 0) {
 
-        char * message = (char *)malloc(strlen(uName) + strlen(uPass) + strlen("  ADD-USER\r\n") + 1);
+        char message[100];
         sprintf(message, "ADD-USER %s %s\r\n", uName, uPass);
 
         printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), uName, uPass, message);
@@ -76,7 +77,7 @@ void IRCClient::on_Button_createRoom_clicked()
 
     if (strcmp(rName, "") != 0) {
 
-        char * message = (char *)malloc(strlen(cUsername) + strlen(cPassword) + strlen(rName) + strlen("  CREATE-ROOM\r\n") + 1);
+        char message[100];
         sprintf(message, "CREATE-ROOM %s %s %s\r\n", cUsername, cPassword, rName);
 
         printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), cUsername, cPassword, message);
@@ -93,7 +94,7 @@ void IRCClient::on_Button_sendMessage_clicked() {
     char * room = strdup(ui->listWidget_roomList->currentItem()->text().toStdString().c_str());
     char * mess = strdup(ui->textbox_sendMessage->toPlainText().toStdString().c_str());
 
-    char * message = (char *)malloc(strlen(getCUsername()) + strlen(getCPassword()) + strlen(room) + strlen("    SEND-MESSAGE\r\n") + 1);
+    char message[100];
     sprintf(message, "SEND-MESSAGE %s %s %s %s\r\n", getCUsername(), getCPassword(), room, mess);
 
     socket.doConnect(getHost(), getPort(), message);
@@ -104,7 +105,7 @@ void IRCClient::on_Button_sendMessage_clicked() {
 void IRCClient::on_listWidget_roomList_itemClicked(QListWidgetItem *item) {
     char * room = strdup(item->text().toStdString().c_str());
 
-    char * message = (char *)malloc(strlen(getCUsername()) + strlen(getCPassword()) + strlen(room) + strlen("   ENTER-ROOM") + 1);
+    char message[100];
     sprintf(message, "ENTER-ROOM %s %s %s", getCUsername(), getCPassword(), room);
 
     printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
@@ -116,7 +117,7 @@ void IRCClient::on_listWidget_roomList_itemClicked(QListWidgetItem *item) {
 
 void IRCClient::refreshUserList(char * room) {
 
-    char * message = (char *)malloc(strlen(getCUsername()) + strlen(getCPassword()) + strlen(room) + strlen("   GET-USERS-IN-ROOM\r\n") + 1);
+    char message[100];
     sprintf(message, "GET-USERS-IN-ROOM %s %s %s\r\n", getCUsername(), getCPassword(), room);
 
     printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
@@ -139,7 +140,7 @@ void IRCClient::refreshUserList(char * room) {
 
 void IRCClient::refreshRoomList() {
 
-    char * message = (char *)malloc(strlen(getCUsername()) + strlen(getCPassword()) + strlen("  LIST-ROOMS\r\n") + 1);
+    char message[100];
     sprintf(message, "LIST-ROOMS %s %s\r\n", getCUsername(), getCPassword());
 
     printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
@@ -161,7 +162,7 @@ void IRCClient::refreshRoomList() {
 }
 
 void IRCClient::refreshMessageList(char * room) {
-    char * message = (char *)malloc(strlen(getCUsername()) + strlen(getCPassword()) + sizeof(int) + strlen("   GET-MESSAGES\r\n") + 1);
+    char message[100];
     sprintf(message, "GET-MESSAGES %s %s %d %s\r\n", getCUsername(), getCPassword(), 0, room);
 
     printf("Host: %s\nPort: %d\nUsername: %s\nPassword: %s\nMessage: %s\n", getHost(), getPort(), getCUsername(), getCPassword(), message);
