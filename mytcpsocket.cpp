@@ -12,23 +12,11 @@ char * MyTcpSocket::doConnect(char * host, int sport, char * command)
 
     socket->connectToHost(host, sport);
 
-    if(socket->waitForConnected(1000))
-    {
+    if(socket->waitForConnected(1000)) {
         qDebug() << "Connected!";
 
-        /*char * token = strtok(command, " ");
-
-        while (token != NULL) {
-            socket->write(token);
-            socket->write(" ");
-
-            token = strtok(NULL, " ");
-        }*/
-        // send
-        //socket->write("GET-ALL-USERS jill l\r\n");
         socket->write(command);
 
-        //socket->flush();
         socket->waitForBytesWritten(1000);
         socket->waitForReadyRead(1500);
 
@@ -38,18 +26,11 @@ char * MyTcpSocket::doConnect(char * host, int sport, char * command)
         QByteArray output = socket->readAll();
         qDebug() << output;
 
-        // close the connection
-        //socket->close();
-
-        //socket->disconnectFromHost();
-
         socket->close();
 
         return output.data();
-    }
-    else
-    {
+    } else {
         qDebug() << "Not connected!";
-        //doConnect(host, sport, command);
     }
+    return NULL;
 }

@@ -98,12 +98,13 @@ void IRCClient::on_Button_createRoom_clicked()
 
 void IRCClient::on_Button_sendMessage_clicked() {
     QListWidgetItem * roomItem = ui->listWidget_roomList->currentItem();
-    char * mess = strdup(ui->textbox_sendMessage->toPlainText().toStdString().c_str());
+    QString messItem = ui->textbox_sendMessage->toPlainText();
 
-    if (mess == NULL || roomItem == NULL)
+    if (messItem == NULL || roomItem == NULL)
         return;
 
     char * room = strdup(roomItem->text().toStdString().c_str());
+    char * mess = strdup(messItem.toStdString().c_str());
 
     char message[100];
     sprintf(message, "SEND-MESSAGE %s %s %s %s\r\n", getCUsername(), getCPassword(), room, mess);
